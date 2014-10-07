@@ -10,7 +10,8 @@ import java.util.*;
 class MapaController extends RestfulController {
     static responseFormats = ['json']
 
-   
+   def servicePath
+
     MapaController() {
         super(Mapa)
     }
@@ -36,7 +37,7 @@ class MapaController extends RestfulController {
 		respond mapa
 	}
 	def show(){
-		
+		//servicePath.findPath()
 		respond Mapa.get(params.id)
 	}
 }
