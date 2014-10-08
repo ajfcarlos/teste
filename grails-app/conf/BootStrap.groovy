@@ -9,7 +9,9 @@ class BootStrap {
         def springContext = WebApplicationContextUtils.getWebApplicationContext( servletContext )
         springContext.getBean( "restLogisticaMarshaller").register()
 
-    /*	new Mapa(nome:"Sao Carlos")
+    /*	só para teste em memoria do banco h2 
+    
+        new Mapa(nome:"Sao Carlos")
     	.addToRotas(new Rota(origem:"A",destino:"B",distancia:new Long(200)))
     	.addToRotas(new Rota(origem:"B",destino:"C",distancia:new Long(100)))
     	.addToRotas(new Rota(origem:"A",destino:"C",distancia:new Long(500)))

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dijkstra;
 
 import java.util.PriorityQueue;
@@ -29,7 +34,8 @@ class Edge
     { target = argTarget; weight = argWeight; }
 }
 
-public class DJ
+// auxiliar buscar o caminho mais curto e distância entre 2 pontos de um mapa cadstrado
+public class Dijkstra
 {
     public static void computePaths(Vertex source)
     {
@@ -67,9 +73,9 @@ public class DJ
         return path;
     }
 
- /*   public static void main(String[] args)
+    public String init()
     {
-        // mark all the vertices 
+       // mark all the vertices 
         Vertex A = new Vertex("A");
         Vertex B = new Vertex("B");
         Vertex C = new Vertex("C");
@@ -90,5 +96,6 @@ public class DJ
         System.out.println("Distance to " + D + ": " + D.minDistance);
         List<Vertex> path = getShortestPathTo(D);
         System.out.println("Path: " + path);
-    }*/
+        return path.toString();
+    }
 }

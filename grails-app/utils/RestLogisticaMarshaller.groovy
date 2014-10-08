@@ -2,6 +2,7 @@
 import grails.converters.JSON
 import restlogistica.*
  
+ // classe que personaliza retorno dos dados no formato json
 class RestLogisticaMarshaller {
 
     void register() {

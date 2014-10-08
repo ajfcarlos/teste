@@ -3,9 +3,11 @@ import restlogistica.Mapa
 import restlogistica.Rota
 import grails.converters.JSON
 import grails.transaction.*
-import java.io.*;
-import java.util.*;
+import java.io.*
+import java.util.*
+import dijkstra.Dijkstra
 
+// controller api rest salvar mapa com rotas e mostrar dados gravados
 @Transactional(readOnly = false)
 class MapaController extends RestfulController {
     static responseFormats = ['json']
@@ -18,13 +20,11 @@ class MapaController extends RestfulController {
 
     def index (Integer max){
 		params.max = Math.min(max ?: 20, 100)
-		println params.max
 		respond Mapa.list(max: params.max)
 	}
 
 	def save(){
 		def data = request.JSON
-		println data
 		def mapa = null
 		Mapa.withTransaction { status ->
 			mapa = new Mapa(nome : data.nome)
@@ -37,7 +37,11 @@ class MapaController extends RestfulController {
 		respond mapa
 	}
 	def show(){
-		//servicePath.findPath()
 		respond Mapa.get(params.id)
+	}
+
+	def teste(){
+		Dijkstra shortest = new Dijkstra();
+	 	def path = shortest.init();
 	}
 }
