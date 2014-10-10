@@ -57,3 +57,6 @@ entrada de dados exemplo
 Foi testado e retornou dados consistentes.
 
 Integrar algoritmo caminho mais curto ao projeto
+
+* todos os algoritmos de Dijkstra tanto em Java quanto em Groovy,isoladamente funcionaram
+mas a integração com a api rest nao funcionou.
