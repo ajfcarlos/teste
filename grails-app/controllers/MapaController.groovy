@@ -5,7 +5,8 @@ import grails.converters.JSON
 import grails.transaction.*
 import java.io.*
 import java.util.*
-import dijkstra.*
+import dijkstra.Dijkstra
+import dijkstra.Rota2
 
 // controller api rest salvar mapa com rotas e mostrar dados gravados
 @Transactional(readOnly = false)
@@ -37,28 +38,23 @@ class MapaController extends RestfulController {
 		respond mapa
 	}
 	def show(){
-		//teste()
+		teste()
 		respond Mapa.get(params.id)
 	}
 
 	// teste do algoritmo menor caminho integrado ao a api rest
 	def teste(){
-		
-		graph = [  
-		    new Edge(node1:'a', node2:'b', distance:4),  
-		    new Edge(node1:'a', node2:'c', distance:2),  
-		    new Edge(node1:'b', node2:'c', distance:3),  
-		    new Edge(node1:'c', node2:'b', distance:1),  
-		    new Edge(node1:'c', node2:'d', distance:5),  
-		    new Edge(node1:'b', node2:'d', distance:1),  
-		    new Edge(node1:'a', node2:'e', distance:1),  
-		    new Edge(node1:'e', node2:'d', distance:4)  
-		]  
-		def dijkstra = new DijkstrasShortestPathAlgoritm(graph, 'a', 'd')  
-		d = dijkstra.getShortestPathWay();  
-		log.info d
-		assert d == 4  
-		assert dijkstra.shortestPath == ['a','c','b','d']
+		//passar rota inicial ,rota final ,edge
+		Dijkstra teste = new Dijkstra();
+		List<Rota2> lista = new ArrayList<Rota2>();
+		lista.add(new Rota2("a", "b", 10));
+	    lista.add(new Rota2("b", "d", 15));
+	    lista.add(new Rota2("a", "c", 20));
+	    lista.add(new Rota2("c", "d", 30));
+	    lista.add(new Rota2("b", "e", 50));
+	    lista.add(new Rota2("d", "e", 30));
+		teste.init(lista,"a","d");
+		log.debug "fim3 ";
 		
 	}
 }
