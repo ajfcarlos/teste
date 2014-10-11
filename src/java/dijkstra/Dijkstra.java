@@ -11,6 +11,8 @@ import java.util.*;
 public class Dijkstra {
 
    private List rotas = new ArrayList();  
+   public static String pathFinal;
+
    private static final Graph.Edge[] GRAPH = {
       new Graph.Edge("a", "b", 10),
       new Graph.Edge("b", "d", 15),
@@ -22,10 +24,11 @@ public class Dijkstra {
    private static final String START = "a";
    private static final String END = "d";
  
-   public static void init(List<Rota2> rotas, String inicio,String fim) {
+   public static String init(List<Rota2> rotas, String inicio,String fim) {
        int numeroRotas = rotas.size();
        System.out.println("teste: " +numeroRotas);
        Graph.Edge GRAPH2[] = new Graph.Edge[numeroRotas]; 
+
 
       int i =0;
      for (Rota2 rota : rotas) {
@@ -35,14 +38,21 @@ public class Dijkstra {
 
       Graph g = new Graph(GRAPH2);
       g.dijkstra(inicio);
-      g.printPath(fim);
+      String dist = g.printPath(fim);
+       pathFinal = g.pathFinal;
+       return dist;
       //g.printAllPaths();
+     
+
    }
 
 }
  
 class Graph {
    private final Map<String, Vertex> graph; // mapping of vertex names to Vertex objects, built from a set of Edges
+
+   public static int distfinal=0;
+   public  static String pathFinal="";
  
    /** One edge of the graph (only used by Graph constructor) */
    public static class Edge {
@@ -66,14 +76,20 @@ class Graph {
          this.name = name;
       }
  
-      private void printPath() {
+      private String printPath() {
          if (this == this.previous) {
             System.out.printf("%s", this.name);
+            //pathFinal = pathFinal + this.name;
+            return "";
          } else if (this.previous == null) {
             System.out.printf("%s(unreached)", this.name);
+           // pathFinal = pathFinal + this.name;
+            return "";
          } else {
             this.previous.printPath();
             System.out.printf(" -> %s(%d)", this.name, this.dist);
+            pathFinal = pathFinal + this.name;
+            return this.dist +"";
          }
       }
  
@@ -142,14 +158,14 @@ class Graph {
    }
  
    /** Prints a path from the source to the specified vertex */
-   public void printPath(String endName) {
+   public String printPath(String endName) {
       if (!graph.containsKey(endName)) {
          System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
-         return;
+         return"";
       }
  
-      graph.get(endName).printPath();
-      System.out.println();
+     return graph.get(endName).printPath();
+      //System.out.println();
    }
    /** Prints the path from the source to every vertex (output order is not guaranteed) */
    public void printAllPaths() {
