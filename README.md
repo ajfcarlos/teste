@@ -60,8 +60,14 @@ Integrar algoritmo caminho mais curto ao projeto
 
 * Foi integrado Dijskstra algoritmo em java ao projeto grails, deu um trabalho, compilador não respondia adequadamente.
 
+Pele metodo show/{id} da api rest é passados os parametros via get 'inicio' e fim e é calculado o  o caminho mais curto e a distância
+Ex: postman url
+    http://localhost:8080/restlogistica/mapas/5?inicio=A&fim=D
+
+tratar a resposta 
 TO DO
-buscar no bd o mapa e transformar em Rota.
-tratar a resposta e calcular o consumo de gasolina na rota de retorno
+rota nao mosta direito cammonho
+auotmia vindo em lista[]
+e calcular gasolina na rota de retorno
 
 
