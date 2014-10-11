@@ -9,6 +9,8 @@ import java.io.*;
 import java.util.*;
  
 public class Dijkstra {
+
+   private List rotas = new ArrayList();  
    private static final Graph.Edge[] GRAPH = {
       new Graph.Edge("a", "b", 10),
       new Graph.Edge("b", "d", 15),
@@ -20,12 +22,23 @@ public class Dijkstra {
    private static final String START = "a";
    private static final String END = "d";
  
-   public static void init(String[] args) {
-      Graph g = new Graph(GRAPH);
-      g.dijkstra(START);
-      g.printPath(END);
+   public static void init(List<Rota2> rotas, String inicio,String fim) {
+       int numeroRotas = rotas.size();
+       System.out.println("teste: " +numeroRotas);
+       Graph.Edge GRAPH2[] = new Graph.Edge[numeroRotas]; 
+
+      int i =0;
+     for (Rota2 rota : rotas) {
+         GRAPH2[i] = new Graph.Edge(rota.origem, rota.destino, rota.distancia);
+         i = i+1;
+       }
+
+      Graph g = new Graph(GRAPH2);
+      g.dijkstra(inicio);
+      g.printPath(fim);
       //g.printAllPaths();
    }
+
 }
  
 class Graph {

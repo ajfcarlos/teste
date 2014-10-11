@@ -6,6 +6,7 @@ import grails.transaction.*
 import java.io.*
 import java.util.*
 import dijkstra.Dijkstra
+import dijkstra.Rota2
 
 // controller api rest salvar mapa com rotas e mostrar dados gravados
 @Transactional(readOnly = false)
@@ -43,8 +44,17 @@ class MapaController extends RestfulController {
 
 	// teste do algoritmo menor caminho integrado ao a api rest
 	def teste(){
+		//passar rota inicial ,rota final ,edge
 		Dijkstra teste = new Dijkstra();
-		teste.init();
+		List<Rota2> lista = new ArrayList<Rota2>();
+		lista.add(new Rota2("a", "b", 10));
+	    lista.add(new Rota2("b", "d", 15));
+	    lista.add(new Rota2("a", "c", 20));
+	    lista.add(new Rota2("c", "d", 30));
+	    lista.add(new Rota2("b", "e", 50));
+	    lista.add(new Rota2("d", "e", 30));
+		teste.init(lista,"a","d");
+		log.debug "fim3 ";
 		
 	}
 }

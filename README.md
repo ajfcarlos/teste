@@ -58,5 +58,10 @@ Foi testado e retornou dados consistentes.
 
 Integrar algoritmo caminho mais curto ao projeto
 
-* todos os algoritmos de Dijkstra tanto em Java quanto em Groovy,isoladamente funcionaram
-mas a integração com a api rest nao funcionou. Portanto o desafio não ficou completo.
+* Foi integrado Dijskstra algoritmo em java ao projeto grails, deu um trabalho, compilador não respondia adequadamente.
+
+TO DO
+buscar no bd o mapa e transformar em Rota.
+tratar a resposta e calcular o consumo de gasolina na rota de retorno
+
+
