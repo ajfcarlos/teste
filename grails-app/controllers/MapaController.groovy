@@ -37,13 +37,13 @@ class MapaController extends RestfulController {
 		respond mapa
 	}
 	def show(){
-		//teste()
+		teste()
 		respond Mapa.get(params.id)
 	}
 
 	// teste do algoritmo menor caminho integrado ao a api rest
 	def teste(){
-		
+		log.debug 'teste1'
 		graph = [  
 		    new Edge(node1:'a', node2:'b', distance:4),  
 		    new Edge(node1:'a', node2:'c', distance:2),  
@@ -54,9 +54,9 @@ class MapaController extends RestfulController {
 		    new Edge(node1:'a', node2:'e', distance:1),  
 		    new Edge(node1:'e', node2:'d', distance:4)  
 		]  
+		log.debug 'teste'
 		def dijkstra = new DijkstrasShortestPathAlgoritm(graph, 'a', 'd')  
-		d = dijkstra.getShortestPathWay();  
-		log.info d
+		d = dijkstra.getShortestPathWay(); 
 		assert d == 4  
 		assert dijkstra.shortestPath == ['a','c','b','d']
 		
