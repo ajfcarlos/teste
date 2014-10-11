@@ -38,23 +38,32 @@ class MapaController extends RestfulController {
 		respond mapa
 	}
 	def show(){
-		teste()
+
+		buscarCaminhoMaisCurto(params.id as Long,params.inicio,params.fim)
 		respond Mapa.get(params.id)
 	}
 
 	// teste do algoritmo menor caminho integrado ao a api rest
-	def teste(){
+	def buscarCaminhoMaisCurto(long id, String inicio,String fim){
 		//passar rota inicial ,rota final ,edge
+		//busca no banco
+		log.debug id
+		log.debug inicio
+		log.debug fim
+		def mapa = Mapa.get(params.id)
+
+		// instancia disjkstra
 		Dijkstra teste = new Dijkstra();
 		List<Rota2> lista = new ArrayList<Rota2>();
-		lista.add(new Rota2("a", "b", 10));
-	    lista.add(new Rota2("b", "d", 15));
-	    lista.add(new Rota2("a", "c", 20));
-	    lista.add(new Rota2("c", "d", 30));
-	    lista.add(new Rota2("b", "e", 50));
-	    lista.add(new Rota2("d", "e", 30));
-		teste.init(lista,"a","d");
-		log.debug "fim3 ";
+
+		//busca lista rotas
+		def rotas = mapa?.rotas;
+		rotas.each{ rota->
+			lista.add(new Rota2(rota.origem, rota.destino, rota.distancia.intValue()));
+		}
+
+		teste.init(lista,inicio,fim);
+		log.debug "fim7 ";
 		
 	}
 }
