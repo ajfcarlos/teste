@@ -42,7 +42,6 @@ public class Dijkstra {
        pathFinal = g.pathFinal;
        return dist;
       //g.printAllPaths();
-     
 
    }
 
@@ -79,11 +78,11 @@ class Graph {
       private String printPath() {
          if (this == this.previous) {
             System.out.printf("%s", this.name);
-            //pathFinal = pathFinal + this.name;
+            pathFinal = pathFinal + this.name;
             return "";
          } else if (this.previous == null) {
             System.out.printf("%s(unreached)", this.name);
-           // pathFinal = pathFinal + this.name;
+            pathFinal = pathFinal + this.name;
             return "";
          } else {
             this.previous.printPath();

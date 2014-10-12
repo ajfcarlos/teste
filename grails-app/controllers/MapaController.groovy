@@ -13,8 +13,6 @@ import dijkstra.Rota2
 class MapaController extends RestfulController {
     static responseFormats = ['json']
 
-   def graph= []
-
     MapaController() {
         super(Mapa)
     }
@@ -39,38 +37,29 @@ class MapaController extends RestfulController {
 	}
 	def show(){
 
-		def custoViagem = buscarCaminhoMaisCurto(params.id as Long,params.inicio,params.fim, params.autonomia as Integer, params.precoGasolina as Float)
-		log.debug custoViagem
-		respond Mapa.get(params.id)
+		def responseData = buscarCaminhoMaisCurto(params.id as Long,params.inicio,params.fim, params.autonomia as Integer, params.precoGasolina as Float)
+		 respond([caminho:responseData.caminho, custoViagem:responseData.custoViagem, mapa: Mapa.get(params.id)])
 	}
 
-	// teste do algoritmo menor caminho integrado ao a api rest
+	// busca caminho mais curto e o custu deste
 	def buscarCaminhoMaisCurto(long id, String inicio,String fim, Integer autonomia,Float precoGasolina){
-		//passar rota inicial ,rota final ,edge
-		//busca no banco
-		log.debug id
-		log.debug inicio
-		log.debug fim
 		def mapa = Mapa.get(params.id)
 
 		// instancia disjkstra
-		Dijkstra shortest = new Dijkstra();
-		List<Rota2> lista = new ArrayList<Rota2>();
+		Dijkstra shortest = new Dijkstra()
+		List<Rota2> lista = new ArrayList<Rota2>()
 
 		//busca lista rotas
 		def rotas = mapa?.rotas;
 		rotas.each{ rota->
-			lista.add(new Rota2(rota.origem, rota.destino, rota.distancia.intValue()));
+			lista.add(new Rota2(rota.origem, rota.destino, rota.distancia.intValue()))
 		}
+		def distancia = shortest.init(lista,inicio,fim)
+		def resposta =  new ResponseData(custoViagem:((distancia as Integer)/autonomia) * precoGasolina,caminho:shortest.pathFinal)	
+	}
 
-		def distancia = shortest.init(lista,inicio,fim);
-		log.debug 'dist' + distancia;
-
-		def caminho = shortest.pathFinal;
-		log.debug "fim29 " + caminho;
-		log.debug 'aut' + autonomia
-		//return ((distancia)/autonomia) *precoGasolina;
-
-		
+	class ResponseData {
+	    public Float custoViagem;
+	    public String caminho;
 	}
 }
