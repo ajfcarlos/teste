@@ -35,9 +35,13 @@ class MapaController extends RestfulController {
 		respond mapa
 	}
 	def show(){
+		if(params.inicio != null && params.fim != null && params.autonomia != null && params.precoGasolina){
+			def responseData = buscarCaminhoMaisCurto(params.id as Long,params.inicio,params.fim, params.autonomia as Integer, params.precoGasolina as Float)
+			respond([caminho:responseData.caminho, custoViagem:responseData.custoViagem, mapa: Mapa.get(params.id)])
+		}else{
+			respond(Mapa.get(params.id))
+		} 
 
-		def responseData = buscarCaminhoMaisCurto(params.id as Long,params.inicio,params.fim, params.autonomia as Integer, params.precoGasolina as Float)
-		respond([caminho:responseData.caminho, custoViagem:responseData.custoViagem, mapa: Mapa.get(params.id)])
 	}
 
 	// busca caminho mais curto e o custu deste
@@ -59,6 +63,6 @@ class MapaController extends RestfulController {
 	//suporte
 	class ResponseData {
 	    public Float custoViagem;
-	    public String caminho;
+	    public String caminho; 
 	}
 }
