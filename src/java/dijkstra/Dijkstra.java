@@ -12,46 +12,30 @@ public class Dijkstra {
 
    private List rotas = new ArrayList();  
    public static String pathFinal;
-
-   private static final Graph.Edge[] GRAPH = {
-      new Graph.Edge("a", "b", 10),
-      new Graph.Edge("b", "d", 15),
-      new Graph.Edge("a", "c", 20),
-      new Graph.Edge("c", "d", 30),
-      new Graph.Edge("b", "e", 50),
-      new Graph.Edge("d", "e", 30),
-   };
-   private static final String START = "a";
-   private static final String END = "d";
  
-   public static String init(List<Rota2> rotas, String inicio,String fim) {
+   public static String init(List<RotaModel> rotas, String inicio,String fim) {
        int numeroRotas = rotas.size();
-       System.out.println("teste: " +numeroRotas);
-       Graph.Edge GRAPH2[] = new Graph.Edge[numeroRotas]; 
+       Graph.Edge GRAPH[] = new Graph.Edge[numeroRotas];
 
-
-      int i =0;
-     for (Rota2 rota : rotas) {
-         GRAPH2[i] = new Graph.Edge(rota.origem, rota.destino, rota.distancia);
+       int i =0;
+       for (RotaModel rota : rotas) {
+         GRAPH[i] = new Graph.Edge(rota.origem, rota.destino, rota.distancia);
          i = i+1;
        }
 
-      Graph g = new Graph(GRAPH2);
+      Graph g = new Graph(GRAPH);
       g.dijkstra(inicio);
       String dist = g.printPath(fim);
-       pathFinal = g.pathFinal;
-       return dist;
-      //g.printAllPaths();
-
+      pathFinal = g.pathFinal;
+      return dist;
    }
-
 }
  
 class Graph {
    private final Map<String, Vertex> graph; // mapping of vertex names to Vertex objects, built from a set of Edges
 
    public static int distfinal=0;
-   public  static String pathFinal="";
+   public static String pathFinal="";
  
    /** One edge of the graph (only used by Graph constructor) */
    public static class Edge {
